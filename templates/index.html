@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+
+    <style>
+
+        body{
+            font-family: sans-serif;
+        }
+
+        #chatbox{
+            margin-left: auto;
+            margin-right: auto;
+            width: 40%;
+            margin-top: 50px;
+        }
+
+        .botText{
+            font-family: monospace;
+            font-size: 16px;
+            text-align: left;
+            line-height: 25px;
+            color: blue;
+        }
+
+        #userInput{
+            margin-left: auto;
+            margin-right: auto;
+            width: 80%;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        #textInput{
+            border-bottom: 3px solid green;
+            font-family: sans-serif;
+            font-size: 16px;
+        }
+
+        #buttonInput{
+            padding: 5px;
+            font-family: monospace;
+            font-size: 16px;
+        }
+
+        h1{
+            text-align: center;
+        }
+
+
+    </style>
+</head>
+<body>
+    <h1>
+        MENTAL HEALTH AI
+    </h1>
+    <div>
+        <div id="chatbox">
+            <p class="botText">
+                <span>Hi there!</span>
+            </p>
+        </div>
+        <div id="userInput">
+            <input id="textInput" type="text" name="userMessage" placeholder="Type your Message....."/>
+            <input id="buttonInput" type="submit" value="Send"/>
+        </div>
+    </div>
+
+
+    <script>
+        function typeBotResponse(text, container) {
+            let index = 0;
+            function type() {
+                if (index < text.length) {
+                    container.innerHTML += text.charAt(index);
+                    index++;
+                    setTimeout(type, 50); // Adjust typing speed here
+                }
+            }
+            type();
+        }
+    
+        function getUserResponse() {
+            var userText = $('#textInput').val();
+            var userHTML = "<p class='userText'><span>" + userText + "</span></p>";
+            $('#textInput').val("");
+            $('#chatbox').append(userHTML);
+            document.getElementById("userInput").scrollIntoView({ block: 'start', behavior: 'smooth' });
+    
+            // Show typing indicator
+            var botHTML = "<p class='botText'><span class='typingIndicator'></span></p>";
+            $('#chatbox').append(botHTML);
+    
+            // Get bot response
+            $.get("/get", { userMessage: userText }).done(function (data) {
+                var botTextContainer = document.querySelector(".typingIndicator");
+                botTextContainer.innerHTML = ""; // Clear typing indicator
+                typeBotResponse(data, botTextContainer); // Apply typing effect
+            });
+        }
+    
+        $("#textInput").keypress(function (e) {
+            if (e.which == 13) {
+                getUserResponse();
+            }
+        });
+    
+        $('#buttonInput').click(function () {
+            getUserResponse();
+        });
+    </script>
+    
+
+</body>
+</html>
