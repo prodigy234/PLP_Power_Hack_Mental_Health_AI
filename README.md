@@ -114,15 +114,19 @@ The Mental Health Chatbot aims to provide users with support for common mental h
 
 ## (6) Flask Routes
 
+
 ## (I) Main Page
-    **Serves the index.html file as the main web page.**
+    
+**Serves the index.html file as the main web page.**
 
 `@app.route("/")`
 `def main():`
     `return render_template("index.html")`
 
+
 ## (II) Chatbot Response
-    **Handles user messages sent from the web interface and returns a bot response.**
+    
+**Handles user messages sent from the web interface and returns a bot response.**
 
 `@app.route("/get")`
 `def get_chatbot_response():`
@@ -135,7 +139,8 @@ The Mental Health Chatbot aims to provide users with support for common mental h
 This project also included a Mental Health Chatbot Web Interface designed to provide a user-friendly interaction platform for mental health support. The chatbot displays a minimalistic interface where users can send messages and receive responses in a styled conversation-like format. The HTML, CSS, and JavaScript code combines structure, design, and interactivity.
 
 ## HTML
-    **The HTML structure provides the basic layout for the chatbot interface.**
+    
+**The HTML structure provides the basic layout for the chatbot interface.**
 
 `<!DOCTYPE html>`
 `<html lang="en">`
@@ -158,6 +163,12 @@ This project also included a Mental Health Chatbot Web Interface designed to pro
     **Includes jQuery library for simplified DOM manipulation and AJAX requests.**
 
 
+## CSS
+
+**The embedded 'style' block defines the visual appearance of the chatbot**
+
+**
+
 ``<style>``
 
 **/* Inline CSS for styling */**
@@ -168,148 +179,151 @@ This project also included a Mental Health Chatbot Web Interface designed to pro
     MENTAL HEALTH AI
 `</h1>`
 
-**Displays the main heading centered at the top.**
+**Displays the chatbot's title at the top of the page.**
 
 
-`<div>`
-    `<div id="chatbox">`
-        `<p class="botText">`
-            `<span>Hi there!</span>`
-        `</p>`
-    `</div>`
-    `<div id="userInput">`
-        `<input id="textInput" type="text" name="userMessage" placeholder="Type your Message....."/>`
-        `<input id="buttonInput" type="submit" value="Send"/>`
-    `</div>`
-`</div>`
+`body { font-family: sans-serif; }` =>
+    **Sets the font for the whole page to "sans-serif" for better readability.**
 
-**div#chatbox: A container for the chatbot conversation.**
-    Contains the default bot greeting: "Hi there!"
+`#chatbox { margin: 50px auto; width: 40%; }` =>
+    **Centers the chatbox on the page with:**
+        (1) margin: 50px auto; for vertical and horizontal centering.
+        (2) width: 40%; sets the chatbox width to 40% of the screen.
 
-**div#userInput: Holds user input elements:**
-    
-    **(a) input#textInput: A text box for user input.**
-    **(b) input#buttonInput: A button to send messages.**
-    
+`.botText, .userText { ... }` =>
+    **Defines styling for messages:**
+        (1) Uses a monospace font for a consistent typewriter look.
+        (2) Sets font size and line height.
 
-## The CSS provides styling for the chatbot layout.
+`.botText span` =>
+    **Styles bot messages:**
+        (1) color: blue; colors text blue.
+        (2) text-align: left; aligns text to the left.
 
-`body {`
-    `font-family: sans-serif;`
-`}`
+`.userText span` =>
+    **Styles user messages:**
+        (1) color: green; colors text green.
+        (2) text-align: right; aligns text to the right.
 
-**Sets the font for the webpage to sans-serif.**
+`#userInput` =>
+    **Centers the input area and makes it responsive with:**
+        (1) margin: 50px auto; for centering.
+        (2) width: 80%; makes it fit most screens.
 
+`#textInput` =>
+    **Styles the text input field:**
+        (1) border-bottom: 3px solid green; gives a green underline.
+        (2) font-size: 16px; width: 80%; makes it readable and responsive.
 
-`#chatbox {`
-    `margin-left: auto;`
-    `margin-right: auto;`
-    `width: 40%;`
-    `margin-top: 50px;`
-`}`
+`#buttonInput` =>
+    **Styles the "Send" button:**
+        (1) Adds padding for better clickability.
+        (2) Sets a matching font size.
 
-**(a) Centers the chatbot conversation box horizontally.**
-**(b) Sets the width to 40% of the viewport and adds a top margin.**
-
-
-`.botText {`
-    `font-family: monospace;`
-    `font-size: 16px;`
-    `text-align: left;`
-    `line-height: 25px;`
-    `color: blue;`
-`}`
-
-**Defines styles for bot messages with a blue monospace font.**
+`h1`
+**Centers the title using text-align: center;.**
 
 
-`#userInput {`
-    `margin-left: auto;`
-    `margin-right: auto;`
-    `width: 80%;`
-    `text-align: center;`
-    `margin-top: 50px;`
-`}`
+## HTML Body
+**Defines the visible elements on the page.**
 
-**Centers the input area horizontally with a width of 80%.**
+`<h1>MENTAL HEALTH AI</h1>`
+    **Displays the chatbot's title at the top of the page.**
 
 
-`#textInput {`
-    `border-bottom: 3px solid green;`
-    `font-family: sans-serif;`
-    `font-size: 16px;`
-`}`
+`<div id="chatbox">`
+    **(1) Initializes the chatbox to display conversation history.**
+    **(2) Contains a greeting:**
+        `<p class="botText"><span>Hi there!</span></p>`
 
-**Styles the input text box with a green underline and a font size of 16px.**
+`<div id="userInput">`
+Holds the input area:
+    `<input id="textInput" type="text">` : The field where users type messages.
+    `<input id="buttonInput" type="submit">` : A button to send messages.
 
 
-`#buttonInput {`
-    `padding: 5px;`
-    `font-family: monospace;`
-    `font-size: 16px;`
-`}`
 
-**Adds padding and styles for the "Send" button.**
-
+## JavaScript
+**Handles interactivity and chatbot functionality.**
 
 ## JavaScript handles chatbot interaction, including message handling and AJAX calls.
 
 
 # javascript
 
-`function typeBotResponse(text, container) {`
-    `let index = 0;`
-    `function type() {`
-        `if (index < text.length) {`
-            `container.innerHTML += text.charAt(index);`
-            `index++;`
-            `setTimeout(type, 50); // Adjust typing speed here`
-        `}`
-    `}`
-    `type();`
-`}`
-
-**Simulates typing effect for bot responses by gradually adding characters to a container.**
+`<script>` => 
+    Begins the script section.
 
 
-`function getUserResponse() {`
+
+function `typeBotResponse(text, container)` => 
+    **This function animates the bot's response character by character.**
+
+`let index = 0;` => 
+    **Initializes a counter to track the current character position.**
+
+function `type()` =>
+    **A nested function to handle the typing effect.**
+
+`if (index < text.length)`
+    **Checks if there are characters left to type.**
+
+`if (text.substr(index, 4) === "<br>")`
+    **If the next 4 characters represent a line break (<br>), adds it and skips ahead.**
+
+`container.innerH`function getUserResponse() {`
     `var userText = $('#textInput').val();`
     `var userHTML = "<p class='userText'><span>" + userText + "</span></p>";`
     `$('#textInput').val(""); // Clears the input box.`
-    `$('#chatbox').append(userHTML); // Appends user's message to the chatbox.`
-    `document.getElementById("userInput").scrollIntoView({ block: 'start', behavior: 'smooth' });`
+    `$('#chatbox').append(userHTMTML += text.charAt(index);` =>
+    **Adds one character to the container.**
 
-**Retrieves user input and displays it in the chatbox.**
-
-
-    `var botHTML = "<p class='botText'><span class='typingIndicator'></span></p>";`
-    `$('#chatbox').append(botHTML);`
-
-**Adds a typing indicator before the bot responds.**
+`setTimeout(type, 30);` =>
+    **Calls type() again after a short delay for typing effect.**
+    **Simulates typing effect for bot responses by gradually adding characters to a container.**
 
 
-    `$.get("/get", { userMessage: userText }).done(function (data) {`
-        `var botTextContainer = document.querySelector(".typingIndicator");`
-        `botTextContainer.innerHTML = ""; // Clear typing indicator`
-        `typeBotResponse(data, botTextContainer); // Apply typing effect`
-    `});`
-`}`
+function `getUserResponse()` =>
+    Handles user input and bot response.
 
-**Sends the user's input to the server via an AJAX GET request.**
-**Displays the bot's response with a typing effect.**
+`var userText = $('#textInput').val();` =>
+    **Retrieves the user's input from the text field.**
+
+`if (!userText.trim()) return;`
+    `Prevents submission of empty messages.`
+
+`var userHTML = "<p class='userText'><span>" + userText + "</span></p>";` =>
+    **Wraps the user's message in HTML for display.**
+
+`$('#textInput').val("");` =>
+    **Clears the input field.**
+
+`$('#chatbox').append(userHTML);` =>
+    **Adds the user's message to the chatbox.**
+
+`document.getElementById("userInput").scrollIntoView(...);` =>
+    **Scrolls the input area into view.**
+
+`var botHTML = "<p class='botText'><span class='typingIndicator'>...</span></p>";` =>
+    **Shows a temporary typing indicator in the chatbox.**
+
+`$.get("/get", { userMessage: userText })`
+    **Sends the user's message to the /get endpoint via AJAX.**
+
+`.done(function (data) { ... })`
+    **Executes once the server responds:** => 
+         Clears the typing indicator.
+            Calls `typeBotResponse(data, botTextContainer)` to animate the response.
 
 
-`$("#textInput").keypress(function (e) {`
-    `if (e.which == 13) { // Checks for Enter key.`
-        `getUserResponse();`
-    `}`
-`});`
+## Event Listeners
 
-`$('#buttonInput').click(function () {`
-    `getUserResponse();`
-`});`
+`$("#textInput").keypress(function (e) { ... })` => 
+    **Listens for the Enter key (key code 13) and triggers** `getUserResponse.`
 
-**Allows users to send messages using the Enter key or the "Send" button.**
+`$('#buttonInput').click(function () { ... })` =>
+    **Listens for the Send button click and triggers getUserResponse.**
+    **Allows users to send messages using the Enter key or the "Send" button.**
 
 ## Features
 **(1) Responsive Design: Adjusts well to various screen sizes.**
@@ -329,3 +343,12 @@ This project also included a Mental Health Chatbot Web Interface designed to pro
 **ChatterBot==1.0.8**
 
 ## All the above code is running on Python 3.8.0 64-bit
+
+
+## Summary
+
+**Frontend: Handles user input, displays messages, and simulates bot typing.**
+
+**Backend Dependency: Relies on the /get endpoint to provide meaningful bot responses.**
+
+**This code creates an interactive chatbot experience with smooth animations and responsive design.**

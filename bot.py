@@ -24,6 +24,10 @@ bot = ChatBot(
 
 # Custom training data for mental health support
 mental_health_data = [
+    "hi",
+    "Hi"
+    "hi",
+    "hi there",
     "I feel stressed",
     "I'm sorry to hear that. Remember to take breaks and breathe deeply. Would you like some mindfulness tips?",
     "stressed",
@@ -154,6 +158,9 @@ def main():
 def get_chatbot_response():
     userText = request.args.get('userMessage')
     return str(bot.get_response(userText))
+    # Replace newlines with HTML line breaks for proper rendering
+    return response.replace("\n", "<br>")
+
 
 
 if __name__ == "__main__":
