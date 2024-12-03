@@ -4,11 +4,11 @@ from flask import Flask, render_template, request
 import random
 
 
-
+# Initializing the Flask web application.
 app = Flask(__name__)
 
 
-# Initialize chatbot
+# Initializing the chatbot
 bot = ChatBot(
     "chatbot",
     read_only=True,
@@ -21,8 +21,8 @@ bot = ChatBot(
     ]
 )
 
-# Custom training data for mental health support
 
+# Custom training data for mental health support
 mental_health_data = [
     "I feel stressed",
     "I'm sorry to hear that. Remember to take breaks and breathe deeply. Would you like some mindfulness tips?",
@@ -95,13 +95,14 @@ mental_health_data = [
     "I feel like I'm stuck in a rut",
     "It's normal to feel stuck sometimes. Break your routine, set new small goals, or try engaging in activities that bring you joy.",
     "How can I stay positive during tough times?",
-    "During tough times, it helps to focus on small victories, express gratitude, and connect with loved ones. Remember, it's okay to not feel positive all the time."
+    "During tough times, it helps to focus on small victories, express gratitude, and connect with loved ones. Remember, it's okay to not feel positive all the time.",
 ]
 
 
-# Train the chatbot with mental health data
+# Training the chatbot with mental health data
 trainer = ListTrainer(bot)
 trainer.train(mental_health_data)
+
 
 # Mindfulness prompts
 MINDFULNESS_PROMPTS = [
@@ -110,12 +111,14 @@ MINDFULNESS_PROMPTS = [
     "Focus on your surroundings. What can you see, hear, and feel right now?",
 ]
 
+
 # Crisis resources (for when the user asks about help)
 CRISIS_RESOURCES = [
     {"name": "National Suicide Prevention Lifeline", "contact": "1-800-273-8255"},
     {"name": "Crisis Text Line", "contact": "Text HOME to 741741"},
     {"name": "SAMHSA Helpline", "contact": "1-800-662-4357"},
 ]
+
 
 # Function to handle chatbot conversation
 def chat_with_bot():
@@ -140,12 +143,13 @@ def chat_with_bot():
         print(f"MentalHealthBot: {response}")
 
 
+# Serving the index.html file as the main web page.
 @app.route("/")
 def main():
     return render_template("index.html")
 
 
-
+# Handling user messages sent from the web interface and returning a bot response.
 @app.route("/get")
 def get_chatbot_response():
     userText = request.args.get('userMessage')
